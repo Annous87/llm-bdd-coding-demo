@@ -63,6 +63,23 @@ Claude will then:
 └── README.md                      # This file
 ```
 
+## AI-assisted BDD development
+
+This repository supports both Claude Code and OpenCode.
+
+### Claude Code
+Project instructions: `CLAUDE.md`
+Commands: `.claude/commands/`
+
+### OpenCode
+Project instructions: `AGENTS.md`
+Commands: `.opencode/commands/`
+
+Both workflows use the same BDD specifications under `spec/`
+and execute acceptance scenarios through Playwright MCP.
+
+The shared workflow is: PRD -> Gherkin acceptance scenarios -> implementation plan -> implementation -> Playwright MCP acceptance validation.
+
 ## Benefits
 
 - **No Glue Code**: Eliminate the maintenance burden of step definitions
