@@ -7,9 +7,10 @@ interface TodoListProps {
   todos: Todo[];
   onToggleTodo: (id: string) => void;
   onDeleteTodo: (id: string) => void;
+  onTogglePriority: (id: string) => void;
 }
 
-export const TodoList: React.FC<TodoListProps> = ({ todos, onToggleTodo, onDeleteTodo }) => {
+export const TodoList: React.FC<TodoListProps> = ({ todos, onToggleTodo, onDeleteTodo, onTogglePriority }) => {
   if (todos.length === 0) {
     return (
       <div className={styles['empty-state']}>
@@ -26,6 +27,7 @@ export const TodoList: React.FC<TodoListProps> = ({ todos, onToggleTodo, onDelet
           todo={todo}
           onToggle={onToggleTodo}
           onDelete={onDeleteTodo}
+          onTogglePriority={onTogglePriority}
         />
       ))}
     </div>

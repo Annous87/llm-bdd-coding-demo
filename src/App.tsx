@@ -7,24 +7,44 @@ import './App.css';
 function App() {
   const [todos, setTodos] = useLocalStorage<Todo[]>('simple-todo-items', []);
 
-  const addTodo = (text: string) => {
+  const normalizedTodos = todos.map((todo) => ({
+    ...todo,
+    isHighPriority: todo.isHighPriority ?? false,
+  }));
+
+  const sortedTodos = [...normalizedTodos].sort((a, b) => {
+    if (a.isHighPriority === b.isHighPriority) {
+      return a.createdAt - b.createdAt;
+    }
+
+    return a.isHighPriority ? -1 : 1;
+  });
+
+  const addTodo = (text: string, isHighPriority: boolean) => {
     const newTodo: Todo = {
       id: crypto.randomUUID(),
       text,
       completed: false,
       createdAt: Date.now(),
+      isHighPriority,
     };
-    setTodos([...todos, newTodo]);
+    setTodos([...normalizedTodos, newTodo]);
   };
 
   const toggleTodo = (id: string) => {
-    setTodos(todos.map(todo =>
+    setTodos(normalizedTodos.map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
+  const togglePriority = (id: string) => {
+    setTodos(normalizedTodos.map(todo =>
+      todo.id === id ? { ...todo, isHighPriority: !todo.isHighPriority } : todo
+    ));
+  };
+
   const deleteTodo = (id: string) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(normalizedTodos.filter(todo => todo.id !== id));
   };
 
   return (
@@ -32,9 +52,10 @@ function App() {
       <h1>Simple Todo App</h1>
       <TodoInput onAddTodo={addTodo} />
       <TodoList
-        todos={todos}
+        todos={sortedTodos}
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
+        onTogglePriority={togglePriority}
       />
     </div>
   );
