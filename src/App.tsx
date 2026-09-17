@@ -36,6 +36,8 @@ function App() {
     return true;
   });
 
+  const hasCompletedTodos = normalizedTodos.some((todo) => todo.completed);
+
   const addTodo = (text: string, isHighPriority: boolean) => {
     const newTodo: Todo = {
       id: crypto.randomUUID(),
@@ -63,35 +65,46 @@ function App() {
     setTodos(normalizedTodos.filter(todo => todo.id !== id));
   };
 
+  const clearCompletedTodos = () => {
+    setTodos(normalizedTodos.filter((todo) => !todo.completed));
+  };
+
   return (
     <div className="app">
       <h1>Simple Todo App</h1>
       <TodoInput onAddTodo={addTodo} />
-      <div className="filter-controls" role="group" aria-label="Todo status filters">
-        <button
-          type="button"
-          className={`filter-button ${selectedFilter === 'all' ? 'filter-button-active' : ''}`}
-          aria-pressed={selectedFilter === 'all'}
-          onClick={() => setSelectedFilter('all')}
-        >
-          All
-        </button>
-        <button
-          type="button"
-          className={`filter-button ${selectedFilter === 'active' ? 'filter-button-active' : ''}`}
-          aria-pressed={selectedFilter === 'active'}
-          onClick={() => setSelectedFilter('active')}
-        >
-          Active
-        </button>
-        <button
-          type="button"
-          className={`filter-button ${selectedFilter === 'completed' ? 'filter-button-active' : ''}`}
-          aria-pressed={selectedFilter === 'completed'}
-          onClick={() => setSelectedFilter('completed')}
-        >
-          Completed
-        </button>
+      <div className="todo-actions">
+        <div className="filter-controls" role="group" aria-label="Todo status filters">
+          <button
+            type="button"
+            className={`filter-button ${selectedFilter === 'all' ? 'filter-button-active' : ''}`}
+            aria-pressed={selectedFilter === 'all'}
+            onClick={() => setSelectedFilter('all')}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className={`filter-button ${selectedFilter === 'active' ? 'filter-button-active' : ''}`}
+            aria-pressed={selectedFilter === 'active'}
+            onClick={() => setSelectedFilter('active')}
+          >
+            Active
+          </button>
+          <button
+            type="button"
+            className={`filter-button ${selectedFilter === 'completed' ? 'filter-button-active' : ''}`}
+            aria-pressed={selectedFilter === 'completed'}
+            onClick={() => setSelectedFilter('completed')}
+          >
+            Completed
+          </button>
+        </div>
+        {hasCompletedTodos && (
+          <button type="button" className="clear-completed-button" onClick={clearCompletedTodos}>
+            Clear completed
+          </button>
+        )}
       </div>
       <TodoList
         todos={visibleTodos}
