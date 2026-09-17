@@ -48,10 +48,27 @@ If additional commits were pushed after approval and the approval is no longer v
 ### 1. Determine Repository and Branch
 
 Determine:
+
 - current Git repository;
 - current branch;
-- `origin` repository;
-- current HEAD commit.
+- current HEAD commit;
+- local `origin` remote using the equivalent of:
+
+  `git remote get-url origin`
+
+Dynamically derive `<ORIGIN-OWNER>/<ORIGIN-REPO>` from the local `origin` remote.
+
+Support standard GitHub remote formats such as:
+
+`https://github.com/<OWNER>/<REPO>.git`
+
+`git@github.com:<OWNER>/<REPO>.git`
+
+Do not hard-code a GitHub username, organization, repository owner, or repository name.
+
+Treat the dynamically resolved `<ORIGIN-OWNER>/<ORIGIN-REPO>` as the only valid repository context for all GitHub operations performed by this command.
+
+Do not use `upstream` to locate or validate the pull request.
 
 The current branch must not be `main`.
 
@@ -59,31 +76,49 @@ Verify that the branch corresponds to the supplied Jira issue key.
 
 Example:
 
-`feature/SR-167907-clear-completed-todos`
-
-for:
-
-`SR-167907`
+`feature/<ISSUE-KEY>-<description>`
 
 If branch and issue key do not align, fail.
 
-### 2. Locate Pull Request
+### 2. Locate Pull Request in Origin Repository
 
-Find the open GitHub pull request whose head is the current branch.
+Find the open GitHub pull request whose head is the current branch exclusively inside the dynamically resolved `<ORIGIN-OWNER>/<ORIGIN-REPO>`.
 
-The PR must belong to the repository configured as `origin`.
+Every GitHub CLI/API query used to locate or inspect the pull request must explicitly specify `<ORIGIN-OWNER>/<ORIGIN-REPO>`.
 
-Do not accept a pull request against an upstream or unrelated repository.
+Use the equivalent of:
 
-Verify:
-- PR head repository = current `origin` repository;
-- PR head branch = current branch;
-- PR base repository = current `origin` repository;
-- PR base branch = `main`.
+`gh pr list --repo <ORIGIN-OWNER>/<ORIGIN-REPO> --head <CURRENT-BRANCH>`
+
+Do not:
+
+- search GitHub globally for the branch;
+- use `upstream`;
+- infer the repository from another open pull request;
+- select a pull request from another repository even if its branch name or commit matches.
+
+Require exactly one matching open pull request in the origin repository.
+
+If no matching PR exists, fail with:
+
+`No open pull request found in origin repository for current branch.`
+
+If multiple matching PRs exist, fail with:
+
+`Multiple matching pull requests found in origin repository.`
+
+After locating the PR, verify:
+
+- PR repository = `<ORIGIN-OWNER>/<ORIGIN-REPO>`
+- PR head branch = current branch
+- PR base repository = `<ORIGIN-OWNER>/<ORIGIN-REPO>`
+- PR base branch = `main`
 
 If any condition is false, fail with:
 
 `Wrong PR target/base repository or branch.`
+
+The upstream repository must never be used as a fallback.
 
 ### 3. Verify Current HEAD Is in the Pull Request
 

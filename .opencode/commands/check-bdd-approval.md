@@ -18,19 +18,74 @@ Usage:
 ## Process
 
 1. **Identify Repository Context**
+
    - Determine the current git branch.
-   - Determine the GitHub repository for the current workspace.
+   - Read the local `origin` remote using the equivalent of:
+
+     `git remote get-url origin`
+
+   - Dynamically derive `<ORIGIN-OWNER>/<ORIGIN-REPO>` from the `origin` remote URL.
+
+   - Support standard GitHub HTTPS and SSH remote formats.
+
+   Examples:
+
+   `https://github.com/<OWNER>/<REPO>.git`
+
+   `git@github.com:<OWNER>/<REPO>.git`
+
+   - Do not hard-code a GitHub username, organization, or repository owner.
+   - Treat the dynamically resolved origin repository as the only valid repository for this approval check.
+   - Do not use `upstream`.
+   - Do not infer the repository from an existing pull request.
 
 2. **Validate Branch-Issue Alignment**
-   - Verify the current branch corresponds to the supplied `<JIRA-ISSUE-KEY>`.
-   - If it does not correspond, return `APPROVAL GATE: FAIL` with the mismatch and stop.
 
-3. **Find Open Pull Request for Current Branch**
-   - Find the open GitHub pull request associated with the current branch.
-   - If no open pull request exists:
+   - Verify the current branch corresponds to the supplied `<JIRA-ISSUE-KEY>`.
+
+   - If it does not correspond:
      - return `APPROVAL GATE: FAIL`
-     - explain that a BDD specification pull request must be created and reviewed
+     - report the mismatch
      - stop.
+
+3. **Find Open Pull Request in Origin Repository**
+
+   - Search for the open pull request for the current branch exclusively inside `<ORIGIN-OWNER>/<ORIGIN-REPO>`.
+
+   - Every GitHub CLI/API query used to locate or inspect the PR must explicitly specify the dynamically resolved origin repository.
+
+   Use the equivalent of:
+
+   `gh pr list --repo <ORIGIN-OWNER>/<ORIGIN-REPO> --head <CURRENT-BRANCH>`
+
+   - Do not search GitHub globally for the branch.
+   - Do not use `upstream`.
+   - Do not select a pull request from another repository even if its branch name or HEAD commit matches.
+
+   - Require exactly one matching open pull request in the origin repository.
+
+   - If no matching pull request exists:
+     - return `APPROVAL GATE: FAIL`
+     - explain that a BDD specification pull request must be created in the origin repository
+     - stop.
+
+   - If multiple matching pull requests exist:
+     - return `APPROVAL GATE: FAIL`
+     - report that multiple candidate pull requests exist
+     - stop.
+
+   - Verify the selected PR:
+     - belongs to `<ORIGIN-OWNER>/<ORIGIN-REPO>`
+     - has the current branch as its head branch
+     - targets `main`
+     - targets `<ORIGIN-OWNER>/<ORIGIN-REPO>` as its base repository
+
+   - If any condition is false:
+     - return `APPROVAL GATE: FAIL`
+     - state `Wrong PR target/base repository or branch.`
+     - stop.
+
+   - The upstream repository must never be used as a fallback.
 
 4. **Inspect Pull Request Changed Files**
    - Read the list of files changed in the pull request.
