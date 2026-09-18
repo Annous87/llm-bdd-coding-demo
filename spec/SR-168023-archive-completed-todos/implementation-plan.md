@@ -15,8 +15,10 @@ Implement only:
 - One bulk archive action for completed todos.
 - Removal of completed todos from the main todo list when archive action is used.
 - Preservation of active todos during archive operation.
+- Persistence of archived completed todos as archived (not cleared) items.
+- A separate archived-todos view that displays archived completed todos.
 
-Do not implement behavior that is not explicitly supported by Jira evidence (for example archive history view, per-item archiving, or specific label wording requirements).
+Do not implement behavior that is not explicitly supported by Jira evidence (for example per-item archiving, or specific label wording requirements).
 
 ## Incremental Tasks
 
@@ -24,7 +26,9 @@ Do not implement behavior that is not explicitly supported by Jira evidence (for
 2. Add a bulk archive action path that targets completed todos only.
 3. Ensure archive action removes completed todos from the main todo list.
 4. Ensure active todos remain unchanged after archive action.
-5. Keep changes limited to behavior required by `acceptance.feature`.
+5. Persist archived completed todos separately from main todos.
+6. Add and wire a separate archived-todos view that displays archived completed todos only.
+7. Keep changes limited to behavior required by `acceptance.feature`.
 
 ## Validation Plan (BDD First)
 
