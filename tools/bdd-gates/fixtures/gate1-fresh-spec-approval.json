@@ -1,0 +1,45 @@
+{
+  "issueKey": "SR-168023",
+  "branch": "feature/SR-168023-archive-completed-todos",
+  "headSha": "abc123",
+  "originUrl": "https://github.com/Annous87/llm-bdd-coding-demo.git",
+  "specDirectories": [
+    "spec/SR-168023-archive-completed-todos"
+  ],
+  "pr": {
+    "repository": "Annous87/llm-bdd-coding-demo",
+    "baseRepository": "Annous87/llm-bdd-coding-demo",
+    "baseBranch": "main",
+    "headBranch": "feature/SR-168023-archive-completed-todos",
+    "author": "Annous87"
+  },
+  "changedFiles": [
+    "spec/SR-168023-archive-completed-todos/prd.md",
+    "spec/SR-168023-archive-completed-todos/acceptance.feature",
+    "spec/SR-168023-archive-completed-todos/implementation-plan.md"
+  ],
+  "commits": [
+    {
+      "sha": "1111111",
+      "timestamp": "2026-09-18T10:00:00Z",
+      "files": [
+        "spec/SR-168023-archive-completed-todos/prd.md"
+      ]
+    },
+    {
+      "sha": "2222222",
+      "timestamp": "2026-09-18T10:05:00Z",
+      "files": [
+        "spec/SR-168023-archive-completed-todos/acceptance.feature"
+      ]
+    }
+  ],
+  "reviews": [],
+  "comments": [
+    {
+      "author": "Annous87",
+      "timestamp": "2026-09-18T10:06:00Z",
+      "body": "BDD specification reviewed. Approved for implementation."
+    }
+  ]
+}

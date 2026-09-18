@@ -8,6 +8,12 @@ Usage:
 
 `/check-implementation-approval <JIRA-ISSUE-KEY>`
 
+Canonical evaluator:
+
+`tools/bdd-gates/gate2.mjs`
+
+This command should consume the evaluator result rather than re-implementing gate logic independently.
+
 This command is verification-only.
 
 It must not:
@@ -133,6 +139,8 @@ If local HEAD differs from the PR head, fail and report that the local branch an
 Resolve:
 
 `spec/<ISSUE-KEY>-*/`
+
+For new Jira-driven work, this issue-key format is the required convention.
 
 Require exactly one unambiguous specification directory.
 

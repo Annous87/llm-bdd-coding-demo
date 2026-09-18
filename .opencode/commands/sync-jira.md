@@ -8,6 +8,13 @@ Usage:
 
 `/sync-jira <ISSUE-KEY> <EVENT>`
 
+Canonical evaluators:
+
+- Gate 1: `tools/bdd-gates/gate1.mjs`
+- Gate 2: `tools/bdd-gates/gate2.mjs`
+
+This command should consume canonical evaluator outputs and must not re-implement approval logic independently.
+
 Supported events:
 
 * clarification
@@ -511,6 +518,10 @@ freshness semantics as:
 
 `/check-bdd-approval <ISSUE-KEY>`
 
+Implementation note:
+
+Consume `tools/bdd-gates/gate1.mjs` output as the canonical Human Gate 1 decision.
+
 Do not introduce a second or stricter definition of Human Gate 1
 inside `/sync-jira`.
 
@@ -826,6 +837,10 @@ Use exactly the same approval evidence model, mode selection, and
 freshness semantics as:
 
 `/check-implementation-approval <ISSUE-KEY>`
+
+Implementation note:
+
+Consume `tools/bdd-gates/gate2.mjs` output as the canonical Human Gate 2 decision.
 
 Do not introduce a second or stricter definition of Human Gate 2
 inside `/sync-jira`.

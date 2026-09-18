@@ -10,6 +10,12 @@ Usage:
 
 `/check-bdd-approval <JIRA-ISSUE-KEY>`
 
+Canonical evaluator:
+
+`tools/bdd-gates/gate1.mjs`
+
+This command should consume the evaluator result rather than re-implementing gate logic independently.
+
 ---
 
 ## Scope and Safety
@@ -193,6 +199,8 @@ The upstream repository MUST never be used as a fallback.
 * Locate the specification directory matching:
 
   `spec/<JIRA-ISSUE-KEY>-*/`
+
+* For new Jira-driven work, this issue-key format is the required convention.
 
 * Require exactly one matching specification directory.
 

@@ -487,6 +487,8 @@ When the completeness gate passes, generate:
 
 `spec/<ISSUE-KEY>-<feature-slug>/`
 
+This is the required convention for new Jira-driven work. Do not create new date-based spec directories for Jira-driven issues.
+
 containing:
 
 - `prd.md`

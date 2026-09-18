@@ -1,0 +1,9 @@
+{
+  "comments": [
+    {
+      "body": "[BDD] SPECIFICATION APPROVED\n\nBDD specification has been reviewed and approved for implementation.\n\nGitHub PR: https://github.com/Annous87/llm-bdd-coding-demo/pull/2\nSpecification version: aaaaaaa\n"
+    }
+  ],
+  "prReference": "https://github.com/Annous87/llm-bdd-coding-demo/pull/2",
+  "currentSpecVersion": "bbbbbbb"
+}

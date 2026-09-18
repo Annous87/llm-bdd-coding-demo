@@ -1,0 +1,47 @@
+{
+  "issueKey": "SR-168023",
+  "branch": "feature/SR-168023-archive-completed-todos",
+  "headSha": "9999999",
+  "originUrl": "https://github.com/Annous87/llm-bdd-coding-demo.git",
+  "specDirectories": [
+    "spec/SR-168023-archive-completed-todos"
+  ],
+  "pr": {
+    "repository": "Annous87/llm-bdd-coding-demo",
+    "baseRepository": "Annous87/llm-bdd-coding-demo",
+    "baseBranch": "main",
+    "headBranch": "feature/SR-168023-archive-completed-todos",
+    "headSha": "9999999",
+    "author": "Annous87"
+  },
+  "changedFiles": [
+    "spec/SR-168023-archive-completed-todos/prd.md",
+    "spec/SR-168023-archive-completed-todos/acceptance.feature",
+    "spec/SR-168023-archive-completed-todos/implementation-plan.md",
+    "src/App.tsx"
+  ],
+  "commits": [
+    {
+      "sha": "8888888",
+      "timestamp": "2026-09-18T14:00:00Z",
+      "files": [
+        "src/App.tsx"
+      ]
+    },
+    {
+      "sha": "9999999",
+      "timestamp": "2026-09-18T14:10:00Z",
+      "files": [
+        "src/App.tsx"
+      ]
+    }
+  ],
+  "reviews": [],
+  "comments": [
+    {
+      "author": "Annous87",
+      "timestamp": "2026-09-18T14:05:00Z",
+      "body": "Implementation reviewed. Approved for merge."
+    }
+  ]
+}
