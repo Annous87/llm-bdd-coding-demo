@@ -86,6 +86,24 @@ function App() {
     setTodos(normalizedTodos.filter(todo => todo.id !== id));
   };
 
+  const duplicateTodo = (id: string) => {
+    const sourceTodo = normalizedTodos.find((todo) => todo.id === id);
+    if (!sourceTodo) {
+      return;
+    }
+
+    const duplicatedTodo: Todo = {
+      id: crypto.randomUUID(),
+      text: sourceTodo.text,
+      completed: false,
+      createdAt: sourceTodo.createdAt - 1,
+      isHighPriority: sourceTodo.isHighPriority,
+      archived: false,
+    };
+
+    setTodos([duplicatedTodo, ...normalizedTodos]);
+  };
+
   const clearCompletedTodos = () => {
     setTodos(normalizedTodos.filter((todo) => !todo.completed));
   };
@@ -175,6 +193,7 @@ function App() {
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
         onTogglePriority={togglePriority}
+        onDuplicateTodo={duplicateTodo}
       />
     </div>
   );
