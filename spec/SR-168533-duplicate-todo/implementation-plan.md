@@ -1,30 +1,29 @@
-# Implementation Plan: SR-168533 Duplicate Todo
+# Implementation Plan: SR-168533
 
-## Scope Guardrails
-- Implement only behavior explicitly defined in `acceptance.feature`.
-- Do not add extra duplicate triggers beyond double click.
-- Do not add speculative validation, persistence, or UX behavior not present in requirements.
+## Scope Alignment
+- Implement only behavior defined in `acceptance.feature`.
+- Keep solution limited to duplicating Todo items via double click.
+- Avoid speculative enhancements or unrelated refactoring.
 
-## Planned Steps
-1. Inspect current Todo domain model and rendering flow to confirm existing fields include title, priority, and active/completed state.
-2. Add a duplication action path triggered by double click on a Todo item.
-3. Implement duplication rules:
-   - copy title from source Todo
-   - copy priority from source Todo
-   - set duplicated Todo to active
-   - insert duplicated Todo at the top of the list
-4. Ensure duplicated Todo gets a new unique identity (implementation necessity, not new requirement).
-5. Verify behavior manually against `acceptance.feature` scenario.
+## Planned Tasks
+1. Review existing Todo data model and list rendering to confirm available fields and item event handling.
+2. Add double-click handling on Todo item to trigger duplication.
+3. Implement duplication behavior:
+   - clone title
+   - clone priority
+   - set duplicate state to active
+   - insert duplicate at list top
+4. Ensure duplicate receives a new unique identifier.
+5. Validate the scenario manually against `acceptance.feature`.
 6. Run quality gates:
    - `npm run lint`
    - `npm run build`
 
-## Mapping to Acceptance
-- Trigger: step 2 maps to "When I double click that Todo item".
-- Placement: step 3 maps to "added at the top of the list".
-- Field copy/reset: step 3 maps to title/priority copy and active state.
+## Acceptance Mapping
+- Trigger behavior maps to: "When I double click that Todo item".
+- Position behavior maps to: "added at the top of the list".
+- Field/state behavior maps to: title, priority, and active state assertions.
 
 ## Out of Scope
-- Keyboard shortcuts or context-menu duplicate actions.
-- Changes to Jira, GitHub workflow, or BDD approval automation.
-- Additional business rules not explicitly stated in requirements.
+- Alternative duplicate triggers (buttons, shortcuts, menus).
+- Additional business rules not explicitly present in Jira requirements.
