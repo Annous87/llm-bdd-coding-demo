@@ -1,30 +1,30 @@
 # PRD: Duplicate Todo
 
-## Jira Issue
-- Key: `SR-168533`
-- Type: `Change`
+## Jira Reference
+- Issue key: `SR-168533`
+- Issue type: `Change`
 - Status: `Neu`
 
 ## Feature Context
-The request is to let users duplicate an existing Todo so they can create a similar task quickly.
+The requested behavior is to let a user duplicate an existing Todo to create a similar task faster.
 
 ## Explicit Scope
-- Support duplicating an existing Todo.
-- Trigger duplication by double clicking the Todo item.
-- Insert the duplicate at the top of the list.
-- Preserve source Todo title and priority in the duplicate.
-- Set the duplicate to active state.
+- Add a way to duplicate an existing Todo.
+- Duplication is triggered by a double click on the Todo item.
+- The duplicated Todo appears at the top of the Todo list.
+- The duplicated Todo keeps the same title and priority as the source Todo.
+- The duplicated Todo always starts as active.
 
 ## Explicit Requirements
-1. User can duplicate an existing Todo.
-2. Duplicate action is triggered by double click on the item.
-3. Duplicated Todo appears at the top of the list.
-4. Duplicated Todo keeps the same title and priority as the source Todo.
-5. Duplicated Todo always starts as active.
+1. A user can duplicate an existing Todo.
+2. The duplication trigger is a double click on the item.
+3. The duplicated Todo is inserted at the top of the list.
+4. The duplicated Todo preserves title and priority from the source item.
+5. The duplicated Todo starts as active.
 
 ## Constraints
-- Requirements are limited to explicit Jira issue content and Jira clarification comments.
-- No additional behavior is defined for other fields, persistence semantics, validations, or error handling.
+- Requirements are limited to behavior explicitly provided in Jira issue content and Jira clarification comments.
+- No additional behavior is defined for persistence, error handling, alternate triggers, or additional fields.
 
 ## Unresolved Blocking Questions
 None.
@@ -33,17 +33,25 @@ None.
 None.
 
 ## Resolved Clarification History
-- `BDD-Q1`: RESOLVED by Jira clarification comment `1047550` (same title and priority, starts active).
-- `BDD-Q2`: RESOLVED by Jira clarification comment `1047555` (duplicate appears at the top).
-- `BDD-Q3`: RESOLVED by Jira clarification comment `1047555` (double click triggers duplication).
+- `BDD-Q1`: RESOLVED by Jira clarification comment (`1047550`): duplicate keeps same title and priority, starts active.
+- `BDD-Q2`: RESOLVED by Jira clarification comment (`1047555`): duplicated item appears at the top.
+- `BDD-Q3`: RESOLVED by Jira clarification comment (`1047555`): duplication trigger is double click on the item.
 
 ## Human Classification Overrides
-None.
+None found.
 
 ## Traceability
-- Original Jira issue (`SR-168533`): user story to duplicate a Todo.
-- Jira acceptance criteria (issue description): "The user can duplicate an existing Todo."
-- Jira clarification comment `1047550`: duplicate keeps title and priority, starts active.
-- Jira clarification comment `1047555`: duplicate appears at top; double click triggers duplication.
-- User clarification supplied during this command flow: None.
-- Human classification override: None.
+- Original Jira issue (`SR-168533`):
+  - User intent to duplicate a Todo.
+- Jira acceptance criteria in issue description:
+  - "The user can duplicate an existing Todo."
+- Jira clarification comment (`1047550`):
+  - Duplicate keeps same title and priority.
+  - Duplicate starts as active.
+- Jira clarification comment (`1047555`):
+  - Duplicate appears at the top.
+  - Double click on item triggers duplication.
+- User clarification supplied during current command flow:
+  - None.
+- Human classification override:
+  - None.
