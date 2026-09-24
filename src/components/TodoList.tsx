@@ -8,16 +8,9 @@ interface TodoListProps {
   onToggleTodo: (id: string) => void;
   onDeleteTodo: (id: string) => void;
   onTogglePriority: (id: string) => void;
-  onDuplicateTodo: (id: string) => void;
 }
 
-export const TodoList: React.FC<TodoListProps> = ({
-  todos,
-  onToggleTodo,
-  onDeleteTodo,
-  onTogglePriority,
-  onDuplicateTodo,
-}) => {
+export const TodoList: React.FC<TodoListProps> = ({ todos, onToggleTodo, onDeleteTodo, onTogglePriority }) => {
   if (todos.length === 0) {
     return (
       <div className={styles['empty-state']}>
@@ -35,7 +28,6 @@ export const TodoList: React.FC<TodoListProps> = ({
           onToggle={onToggleTodo}
           onDelete={onDeleteTodo}
           onTogglePriority={onTogglePriority}
-          onDuplicate={onDuplicateTodo}
         />
       ))}
     </div>
