@@ -82,28 +82,6 @@ function App() {
     ));
   };
 
-  const duplicateTodo = (id: string) => {
-    const source = normalizedTodos.find((todo) => todo.id === id);
-
-    if (!source) {
-      return;
-    }
-
-    const earliestCreatedAt = normalizedTodos.reduce(
-      (earliest, todo) => Math.min(earliest, todo.createdAt),
-      Date.now()
-    );
-
-    const duplicatedTodo: Todo = {
-      ...source,
-      id: crypto.randomUUID(),
-      completed: false,
-      createdAt: earliestCreatedAt - 1,
-    };
-
-    setTodos([...normalizedTodos, duplicatedTodo]);
-  };
-
   const deleteTodo = (id: string) => {
     setTodos(normalizedTodos.filter(todo => todo.id !== id));
   };
@@ -197,7 +175,6 @@ function App() {
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
         onTogglePriority={togglePriority}
-        onDuplicateTodo={duplicateTodo}
       />
     </div>
   );
