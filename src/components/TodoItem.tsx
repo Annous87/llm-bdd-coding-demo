@@ -7,13 +7,15 @@ interface TodoItemProps {
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onTogglePriority: (id: string) => void;
+  onDuplicate: (id: string) => void;
 }
 
-export const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle, onDelete, onTogglePriority }) => {
+export const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle, onDelete, onTogglePriority, onDuplicate }) => {
   return (
     <div
       className={`${styles['todo-item']} ${todo.isHighPriority ? styles['high-priority-item'] : ''}`}
       data-priority={todo.isHighPriority ? 'high' : 'normal'}
+      onDoubleClick={() => onDuplicate(todo.id)}
     >
       <input
         type="checkbox"
